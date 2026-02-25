@@ -1,0 +1,7 @@
+ignoredBuiltDependencies:
+  - '@sentry/cli'
+  - esbuild
+  - libxmljs
+
+onlyBuiltDependencies:
+  - better-sqlite3
