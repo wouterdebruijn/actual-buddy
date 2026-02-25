@@ -16,6 +16,7 @@
     "start": "node --import ./.output/server/instrument.server.mjs .output/server/index.mjs"
   },
   "dependencies": {
+    "@actual-app/api": "^26.2.1",
     "@faker-js/faker": "^10.0.0",
     "@mantine/core": "^8.3.15",
     "@mantine/hooks": "^8.3.15",
