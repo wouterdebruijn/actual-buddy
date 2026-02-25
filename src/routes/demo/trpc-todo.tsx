@@ -1,3 +1,4 @@
+import { Button } from "@mantine/core";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
@@ -14,7 +15,20 @@ export const Route = createFileRoute("/demo/trpc-todo")({
 
 function TRPCTodos() {
 	const trpc = useTRPC();
-	const { data, refetch } = useQuery(trpc.todos.list.queryOptions());
+	const { data: accounts, refetch } = useQuery(
+		trpc.actual.accounts.list.queryOptions(),
+	);
+
+	const { data } = useQuery({
+		...trpc.actual.transactions.list.queryOptions({
+			accountId: accounts?.[0]?.id || "",
+			startDate: new Date(
+				Date.now() - 30 * 24 * 60 * 60 * 1000,
+			).toLocaleDateString("en-CA"), // 30 days ago
+			endDate: new Date().toLocaleDateString("en-CA"), // today
+		}),
+		enabled: !!accounts?.[0]?.id,
+	});
 
 	const [todo, setTodo] = useState("");
 	const { mutate: addTodo } = useMutation({
@@ -25,13 +39,20 @@ function TRPCTodos() {
 		},
 	});
 
+	const { mutate: removeTodo } = useMutation({
+		...trpc.todos.remove.mutationOptions(),
+		onSuccess: () => {
+			refetch();
+		},
+	});
+
 	const submitTodo = useCallback(() => {
 		addTodo({ name: todo });
 	}, [addTodo, todo]);
 
 	return (
 		<div
-			className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-white"
+			className="flex items-center justify-center min-h-screen bg-linear-to-br from-purple-100 to-blue-100 p-4 text-white"
 			style={{
 				backgroundImage:
 					"radial-gradient(50% 50% at 95% 5%, #4a90c2 0%, #317eb9 50%, #1e4d72 100%)",
@@ -45,7 +66,7 @@ function TRPCTodos() {
 							key={t.id}
 							className="bg-white/10 border border-white/20 rounded-lg p-3 backdrop-blur-sm shadow-md"
 						>
-							<span className="text-lg text-white">{t.name}</span>
+							<span className="text-lg text-white">{t.notes}</span>
 						</li>
 					))}
 				</ul>

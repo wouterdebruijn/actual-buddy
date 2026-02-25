@@ -1,5 +1,6 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod";
+import actualRouter from "./actual-router";
 import { createTRPCRouter, publicProcedure } from "./init";
 
 const todos = [
@@ -17,9 +18,20 @@ const todosRouter = {
 			todos.push(newTodo);
 			return newTodo;
 		}),
+	remove: publicProcedure
+		.input(z.object({ id: z.number() }))
+		.mutation(({ input }) => {
+			const index = todos.findIndex((t) => t.id === input.id);
+			if (index !== -1) {
+				todos.splice(index, 1);
+				return { success: true };
+			}
+			return { success: false, message: "Todo not found" };
+		}),
 } satisfies TRPCRouterRecord;
 
 export const trpcRouter = createTRPCRouter({
 	todos: todosRouter,
+	actual: actualRouter,
 });
 export type TRPCRouter = typeof trpcRouter;

@@ -1,3 +1,5 @@
+import { AppShell, Burger, Group } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
@@ -45,6 +47,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const [opened, { toggle }] = useDisclosure();
+
 	return (
 		<html lang="en">
 			<head>
@@ -53,20 +57,44 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body>
 				<TanStackQueryProvider>
 					<MantineRootProvider>
-						<Header />
-						{children}
-						<TanStackDevtools
-							config={{
-								position: "bottom-right",
+						<AppShell
+							padding="md"
+							header={{ height: 60 }}
+							navbar={{
+								width: 200,
+								breakpoint: "sm",
+								collapsed: { mobile: !opened },
 							}}
-							plugins={[
-								{
-									name: "Tanstack Router",
-									render: <TanStackRouterDevtoolsPanel />,
-								},
-								TanStackQueryDevtools,
-							]}
-						/>
+						>
+							<AppShell.Header>
+								<Burger
+									opened={opened}
+									onClick={toggle}
+									hiddenFrom="sm"
+									size="sm"
+								/>
+								<Header />
+							</AppShell.Header>
+
+							<AppShell.Navbar>
+								<div className="p-4">Navbar content</div>
+							</AppShell.Navbar>
+
+							<AppShell.Main>{children}</AppShell.Main>
+
+							<TanStackDevtools
+								config={{
+									position: "bottom-right",
+								}}
+								plugins={[
+									{
+										name: "Tanstack Router",
+										render: <TanStackRouterDevtoolsPanel />,
+									},
+									TanStackQueryDevtools,
+								]}
+							/>
+						</AppShell>
 					</MantineRootProvider>
 				</TanStackQueryProvider>
 				<Scripts />

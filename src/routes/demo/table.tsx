@@ -17,9 +17,10 @@ import {
 	sortingFns,
 	useReactTable,
 } from "@tanstack/react-table";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import React from "react";
-import type { Person } from "#/data/demo-table-data";
-import { makeData } from "#/data/demo-table-data";
+import type { Person } from "@/data/demo-table-data";
+import { makeData } from "@/data/demo-table-data";
 
 export const Route = createFileRoute("/demo/table")({
 	component: TableDemo,
@@ -175,8 +176,12 @@ function TableDemo() {
 															header.getContext(),
 														)}
 														{{
-															asc: " 🔼",
-															desc: " 🔽",
+															asc: (
+																<ArrowUp className="inline ml-1" size={12} />
+															),
+															desc: (
+																<ArrowDown className="inline ml-1" size={12} />
+															),
 														}[header.column.getIsSorted() as string] ?? null}
 													</div>
 													{header.column.getCanFilter() ? (
