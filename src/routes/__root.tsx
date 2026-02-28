@@ -1,17 +1,18 @@
-import { AppShell, Burger, Group } from "@mantine/core";
+import { AppShell, Burger, Button, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
+	Link,
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
+import Title from "@/components/basics/Title";
 import MantineRootProvider from "@/integrations/mantine/root-provider";
 import type { TRPCRouter } from "@/integrations/trpc/router";
-import Header from "../components/Header";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
 import appCss from "../styles.css?url";
@@ -59,28 +60,48 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					<MantineRootProvider>
 						<AppShell
 							padding="md"
-							header={{ height: 60 }}
+							header={{ height: 80 }}
 							navbar={{
-								width: 200,
+								width: 150,
 								breakpoint: "sm",
-								collapsed: { mobile: !opened },
+								collapsed: { desktop: !opened, mobile: !opened },
 							}}
 						>
 							<AppShell.Header>
-								<Burger
-									opened={opened}
-									onClick={toggle}
-									hiddenFrom="sm"
-									size="sm"
-								/>
-								<Header />
+								<Group className="h-full">
+									<Burger
+										opened={opened}
+										onClick={toggle}
+										size="sm"
+										className="mx-4"
+									/>
+									<Group>
+										<h1 className="text-xl font-semibold text-primary">
+											<Link to="/">
+												<Title color="primary">ActualBuddy</Title>
+											</Link>
+										</h1>
+									</Group>
+									<Group className="ml-auto pr-6">
+										<Link to="/auth/sign-up">
+											<Button variant="outline">Sign Up</Button>
+										</Link>
+										<Link to="/auth/sign-in">
+											<Button variant="filled">Sign In</Button>
+										</Link>
+									</Group>
+								</Group>
 							</AppShell.Header>
 
 							<AppShell.Navbar>
 								<div className="p-4">Navbar content</div>
 							</AppShell.Navbar>
 
-							<AppShell.Main>{children}</AppShell.Main>
+							<AppShell.Main>
+								<Container size={"xl"} className="pt-8">
+									{children}
+								</Container>
+							</AppShell.Main>
 
 							<TanStackDevtools
 								config={{
