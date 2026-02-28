@@ -2,8 +2,10 @@ import {
 	Alert,
 	Button,
 	Select as MantineSelect,
+	type SelectProps,
 	Textarea,
 	TextInput,
+	type TextInputProps,
 } from "@mantine/core";
 import { useStore } from "@tanstack/react-form";
 import { useFieldContext, useFormContext } from "@/hooks/demo.form-context";
@@ -44,7 +46,8 @@ function ErrorMessages({
 export function TextField({
 	label,
 	placeholder,
-}: {
+	...props
+}: TextInputProps & {
 	label: string;
 	placeholder?: string;
 }) {
@@ -53,6 +56,7 @@ export function TextField({
 
 	return (
 		<TextInput
+			{...props}
 			label={label}
 			placeholder={placeholder}
 			value={field.state.value}
@@ -90,7 +94,8 @@ export function TextArea({
 export function Select({
 	label,
 	values,
-}: {
+	...props
+}: SelectProps & {
 	label: string;
 	values: Array<{ label: string; value: string }>;
 	placeholder?: string;
@@ -100,6 +105,7 @@ export function Select({
 
 	return (
 		<MantineSelect
+			{...props}
 			label={label}
 			data={values}
 			value={field.state.value}
