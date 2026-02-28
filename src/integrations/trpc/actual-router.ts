@@ -25,15 +25,22 @@ async function initActualInstance() {
 		throw new Error("ACTUAL_BUDGET_URL environment variable is not set");
 	}
 
-	await actualInstance.init({
-		serverURL: actualBudgetURL,
-		password: actualBudgetPassword,
-		dataDir: "./actual-budget-data",
-	});
+	console.log(`Using Actual API server URL: ${actualBudgetURL}`);
 
-	await actualInstance.downloadBudget("d901fce3-4bf1-4c17-9287-f86b70543978");
+	try {
+		await actualInstance.init({
+			serverURL: actualBudgetURL,
+			password: actualBudgetPassword,
+			dataDir: "./actual-budget-data",
+		});
 
-	return actualInstance;
+		await actualInstance.downloadBudget("d901fce3-4bf1-4c17-9287-f86b70543978");
+
+		return actualInstance;
+	} catch (error) {
+		console.error("Failed to initialize Actual API:", error);
+		throw new Error("Failed to initialize Actual API");
+	}
 }
 
 const actualRouter = {
