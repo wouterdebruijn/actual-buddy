@@ -1,8 +1,5 @@
-import { Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import z from "zod";
-import TransactionTable from "@/components/transactions/TransactionTable";
 import { useAppForm } from "@/hooks/demo.form";
 import { useTRPC } from "@/integrations/trpc/react";
 
@@ -37,33 +34,32 @@ export default function ActualAccountSelection({
 	});
 
 	return (
-		<div>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					form.handleSubmit();
-				}}
-				className="space-y-6"
-			>
-				<form.AppField name="accountId">
-					{(field) => (
-						<field.Select
-							label="Account"
-							values={availableAccounts.map((account) => ({
-								label: account.name,
-								value: account.id,
-							}))}
-						/>
-					)}
-				</form.AppField>
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				form.handleSubmit();
+			}}
+			className="flex items-end gap-4 justify-items-start"
+		>
+			<form.AppField name="accountId">
+				{(field) => (
+					<field.Select
+						className="w-full"
+						label="Account"
+						values={availableAccounts.map((account) => ({
+							label: account.name,
+							value: account.id,
+						}))}
+					/>
+				)}
+			</form.AppField>
 
-				<div className="flex justify-end">
-					<form.AppForm>
-						<form.SubscribeButton label="Submit" />
-					</form.AppForm>
-				</div>
-			</form>
-		</div>
+			<div className="self-start mt-6">
+				<form.AppForm>
+					<form.SubscribeButton label="Submit" />
+				</form.AppForm>
+			</div>
+		</form>
 	);
 }

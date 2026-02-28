@@ -1,6 +1,7 @@
-import { AppShell, Title } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
+import Title from "@/components/basics/Title";
 import TransactionTable from "@/components/transactions/TransactionTable";
 import { useTRPC } from "@/integrations/trpc/react";
 import ActualAccountSelection from "./ActualAccountSelection";
@@ -60,11 +61,11 @@ export default function ActualTransactionTable() {
 	}, [transactions, payees, categories]);
 
 	return (
-		<AppShell.Section>
+		<Stack>
+			<Title color="text">Actual Transactions</Title>
 			<ActualAccountSelection setAccountId={setAccountId} />
 
-			<Title>Actual Transactions</Title>
 			<TransactionTable transactions={richTransactions}></TransactionTable>
-		</AppShell.Section>
+		</Stack>
 	);
 }
