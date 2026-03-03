@@ -1,10 +1,10 @@
 import { AppShell, Stack, Text } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import SectionLine from "@/components/basics/SectionLine";
-import Title from "@/components/basics/Title";
+import SectionLine from "@/components/basic/SectionLine";
+import Title from "@/components/basic/Title";
 import ActualTransactionTable from "@/feature/ActualTransactionTable";
 
-export const Route = createFileRoute("/_authed/")({
+export const Route = createFileRoute("/_authed/_layout/")({
 	component: RouteComponent,
 });
 

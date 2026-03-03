@@ -1,8 +1,8 @@
 import { Stack } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import Title from "@/components/basics/Title";
-import TransactionTable from "@/components/transactions/TransactionTable";
+import Title from "@/components/basic/Title";
+import TransactionTable from "@/components/budget/transactions/TransactionTable";
 import { useTRPC } from "@/integrations/trpc/react";
 import ActualAccountSelection from "./ActualAccountSelection";
 

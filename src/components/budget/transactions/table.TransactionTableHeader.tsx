@@ -1,7 +1,7 @@
 import { Table as MantineTable } from "@mantine/core";
 import { type Column, flexRender, type Table } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import DebouncedInput from "@/components/DebounceInput";
+import DebouncedInput from "@/components/input/DebounceInput";
 
 export interface TableHeaderProps {
 	table: Table<unknown>;

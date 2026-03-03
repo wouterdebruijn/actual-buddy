@@ -1,4 +1,3 @@
-import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 import { auth } from "@/lib/auth";
@@ -24,9 +23,3 @@ export const ensureSession = createServerFn({ method: "GET" }).handler(
 		return session;
 	},
 );
-
-export const signOut = createServerFn().handler(async () => {
-	const headers = getRequestHeaders();
-	await auth.api.signOut({ headers });
-	throw redirect({ to: "/auth/sign-in" });
-});

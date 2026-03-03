@@ -1,6 +1,7 @@
 import {
 	Alert,
 	Button,
+	type ButtonProps,
 	Select as MantineSelect,
 	type SelectProps,
 	Textarea,
@@ -11,12 +12,15 @@ import { useStore } from "@tanstack/react-form";
 import { useFieldContext, useFormContext } from "@/hooks/demo.form-context";
 import { useZodFormError } from "@/hooks/zod-form-error";
 
-export function SubscribeButton({ label }: { label: string }) {
+export function SubscribeButton({
+	label,
+	...props
+}: ButtonProps & { label: string }) {
 	const form = useFormContext();
 	return (
 		<form.Subscribe selector={(state) => state.isSubmitting}>
 			{(isSubmitting) => (
-				<Button type="submit" disabled={isSubmitting}>
+				<Button {...props} type="submit" disabled={isSubmitting}>
 					{label}
 				</Button>
 			)}
