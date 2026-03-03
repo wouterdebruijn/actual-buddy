@@ -4,9 +4,16 @@ import { useMemo, useState } from "react";
 import Title from "@/components/basic/Title";
 import TransactionTable from "@/components/budget/transactions/TransactionTable";
 import { useTRPC } from "@/integrations/trpc/react";
+import type { APIAccountEntity } from "@/types/actual";
 import ActualAccountSelection from "./ActualAccountSelection";
 
-export default function ActualTransactionTable() {
+interface ActualTransactionTableProps {
+	accounts: APIAccountEntity[];
+}
+
+export default function ActualTransactionTable({
+	accounts,
+}: ActualTransactionTableProps) {
 	const trpcClient = useTRPC();
 
 	const [accountId, setAccountId] = useState<string | null>(null);
@@ -63,7 +70,7 @@ export default function ActualTransactionTable() {
 	return (
 		<Stack>
 			<Title color="text">Actual Transactions</Title>
-			<ActualAccountSelection setAccountId={setAccountId} />
+			<ActualAccountSelection accounts={accounts} setAccountId={setAccountId} />
 
 			<TransactionTable transactions={richTransactions}></TransactionTable>
 		</Stack>

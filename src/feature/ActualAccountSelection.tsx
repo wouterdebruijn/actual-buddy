@@ -1,26 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
 import z from "zod";
 import { useAppForm } from "@/hooks/demo.form";
-import { useTRPC } from "@/integrations/trpc/react";
+import type { APIAccountEntity } from "@/types/actual";
 
 const schema = z.object({
 	accountId: z.string().nonempty("Account is required"),
 });
 
 export interface ActualAccountSelectionProps {
+	accounts: APIAccountEntity[];
 	setAccountId: (accountId: string) => void;
 }
 
 export default function ActualAccountSelection({
+	accounts,
 	setAccountId,
 }: ActualAccountSelectionProps) {
-	const trpcClient = useTRPC();
-
-	const { data: availableAccounts } = useQuery({
-		...trpcClient.actual.accounts.list.queryOptions(),
-		initialData: [],
-	});
-
 	const form = useAppForm({
 		defaultValues: {
 			accountId: "",
@@ -47,7 +41,7 @@ export default function ActualAccountSelection({
 					<field.Select
 						className="w-full"
 						label="Account"
-						values={availableAccounts.map((account) => ({
+						values={accounts.map((account) => ({
 							label: account.name,
 							value: account.id,
 						}))}

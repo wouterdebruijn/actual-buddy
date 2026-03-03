@@ -15,20 +15,7 @@ export const Route = createFileRoute("/demo/trpc-todo")({
 
 function TRPCTodos() {
 	const trpc = useTRPC();
-	const { data: accounts, refetch } = useQuery(
-		trpc.actual.accounts.list.queryOptions(),
-	);
-
-	const { data } = useQuery({
-		...trpc.actual.transactions.list.queryOptions({
-			accountId: accounts?.[0]?.id || "",
-			startDate: new Date(
-				Date.now() - 30 * 24 * 60 * 60 * 1000,
-			).toLocaleDateString("en-CA"), // 30 days ago
-			endDate: new Date().toLocaleDateString("en-CA"), // today
-		}),
-		enabled: !!accounts?.[0]?.id,
-	});
+	const { data, refetch } = useQuery(trpc.todos.list.queryOptions());
 
 	const [todo, setTodo] = useState("");
 	const { mutate: addTodo } = useMutation({
@@ -66,7 +53,7 @@ function TRPCTodos() {
 							key={t.id}
 							className="bg-white/10 border border-white/20 rounded-lg p-3 backdrop-blur-sm shadow-md"
 						>
-							<span className="text-lg text-white">{t.notes}</span>
+							<span className="text-lg text-white">{t.name}</span>
 						</li>
 					))}
 				</ul>

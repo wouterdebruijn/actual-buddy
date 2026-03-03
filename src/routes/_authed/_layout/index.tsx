@@ -1,15 +1,27 @@
 import { AppShell, Stack, Text } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import SectionLine from "@/components/basic/SectionLine";
 import Title from "@/components/basic/Title";
 import ActualTransactionTable from "@/feature/ActualTransactionTable";
+import { useTRPC } from "@/integrations/trpc/react";
 
 export const Route = createFileRoute("/_authed/_layout/")({
 	component: RouteComponent,
+	loader: async ({ context }) => {
+		await context.queryClient.prefetchQuery(
+			context.trpc.actual.accounts.list.queryOptions(),
+		);
+	},
 });
 
 function RouteComponent() {
+	const trpc = useTRPC();
 	const { user } = Route.useRouteContext();
+
+	const { data: actualBudgetAccounts } = useQuery(
+		trpc.actual.accounts.list.queryOptions(),
+	);
 
 	return (
 		<AppShell.Section className="flex gap-8 flex-col">
@@ -29,7 +41,7 @@ function RouteComponent() {
 
 			<SectionLine />
 
-			<ActualTransactionTable />
+			<ActualTransactionTable accounts={actualBudgetAccounts ?? []} />
 		</AppShell.Section>
 	);
 }

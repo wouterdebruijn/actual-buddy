@@ -14,7 +14,14 @@ export type AnyAPICategoryEntity = Awaited<
 	ReturnType<ActualApp["getCategories"]>
 >[number];
 
-export type ActualTransaction = TransactionEntity & {
+export type APIAccountEntity = Awaited<
+	ReturnType<ActualApp["getAccounts"]>
+>[number];
+
+export type ActualTransaction = Omit<
+	TransactionEntity,
+	"payee" | "category"
+> & {
 	payee: APIPayeeEntity | null;
 	category: AnyAPICategoryEntity | null;
 };
