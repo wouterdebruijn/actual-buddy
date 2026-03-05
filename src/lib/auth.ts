@@ -13,5 +13,5 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
-	plugins: [tanstackStartCookies()], // make sure this is the last plugin in the array
+	plugins: [tanstackStartCookies()], // make sure this is the last plugin in the array,
 });

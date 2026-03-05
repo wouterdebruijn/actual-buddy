@@ -1,39 +1,35 @@
 import { Stack } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Title from "@/components/basic/Title";
 import TransactionTable from "@/components/budget/transactions/TransactionTable";
 import { useTRPC } from "@/integrations/trpc/react";
-import type { APIAccountEntity } from "@/types/actual";
-import ActualAccountSelection from "./ActualAccountSelection";
 
 interface ActualTransactionTableProps {
-	accounts: APIAccountEntity[];
+	accountId?: string;
+	startDate?: string;
+	endDate?: string;
 }
 
 export default function ActualTransactionTable({
-	accounts,
+	accountId,
+	startDate,
+	endDate,
 }: ActualTransactionTableProps) {
 	const trpcClient = useTRPC();
-
-	const [accountId, setAccountId] = useState<string | null>(null);
 
 	const currentDate = new Date();
 	const oneMonthAgo = new Date();
 	oneMonthAgo.setMonth(currentDate.getMonth() - 1);
 
-	const [startDate, setStartDate] = useState<string>(
-		new Date(oneMonthAgo).toLocaleDateString("en-CA"),
-	);
-	const [endDate, setEndDate] = useState<string>(
-		new Date(currentDate).toLocaleDateString("en-CA"),
-	);
+	const defaultStartDate = new Date(oneMonthAgo).toLocaleDateString("en-CA");
+	const defaultEndDate = new Date(currentDate).toLocaleDateString("en-CA");
 
 	const { data: transactions } = useQuery({
 		...trpcClient.actual.transactions.list.queryOptions({
 			accountId: accountId ?? "",
-			startDate,
-			endDate,
+			startDate: startDate ?? defaultStartDate,
+			endDate: endDate ?? defaultEndDate,
 		}),
 		initialData: [],
 		enabled: !!accountId,
@@ -70,7 +66,6 @@ export default function ActualTransactionTable({
 	return (
 		<Stack>
 			<Title color="text">Actual Transactions</Title>
-			<ActualAccountSelection accounts={accounts} setAccountId={setAccountId} />
 
 			<TransactionTable transactions={richTransactions}></TransactionTable>
 		</Stack>

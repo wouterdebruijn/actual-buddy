@@ -1,6 +1,7 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import z from "zod";
 import getPocketBaseInstance from "@/lib/pocketbase";
+import { Collections, type Create } from "@/types/pocketbase-types";
 import { protectedProcedure } from "./init";
 
 const pb = getPocketBaseInstance();
@@ -20,20 +21,20 @@ const pocketBaseRouter = {
 			create: protectedProcedure
 				.input(
 					z.object({
-						name: z.string(),
-						amount: z.number(),
+						budgetId: z.string(),
 					}),
 				)
 				.mutation(async ({ input, ctx }) => {
-					const { name, amount } = input;
+					const { budgetId } = input;
 					// User ID comes from authenticated context
 					const userId = ctx.user.id;
 
-					const record = await pb.collection("budget").create({
+					const budget: Create<Collections.Budget> = {
 						user: userId,
-						name,
-						amount,
-					});
+						budgetId,
+					};
+
+					const record = await pb.collection(Collections.Budget).create(budget);
 					return record;
 				}),
 		},
