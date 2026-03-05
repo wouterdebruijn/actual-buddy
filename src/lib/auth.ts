@@ -1,17 +1,9 @@
 import { betterAuth } from "better-auth";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import PocketBase from "pocketbase";
 import { pocketBaseAdapter } from "pocketbase-better-auth";
+import getPocketBaseInstance from "./pocketbase";
 
-const pb = new PocketBase(
-	process.env.POCKETBASE_URL || "http://localhost:8090",
-);
-await pb
-	.collection("_superusers")
-	.authWithPassword(
-		process.env.PCOKETBASE_ADMIN_EMAIL!,
-		process.env.POCKETBASE_ADMIN_PASSWORD!,
-	);
+const pb = getPocketBaseInstance();
 
 export const auth = betterAuth({
 	database: pocketBaseAdapter({
