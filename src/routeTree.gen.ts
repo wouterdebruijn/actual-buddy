@@ -10,15 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthedRouteImport } from './routes/_authed'
-import { Route as DemoTrpcTodoRouteImport } from './routes/demo/trpc-todo'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as AuthFormLayoutRouteImport } from './routes/auth/_formLayout'
 import { Route as AuthedLayoutRouteImport } from './routes/_authed/_layout'
 import { Route as AuthedLayoutIndexRouteImport } from './routes/_authed/_layout/index'
-import { Route as DemoSentryTestingRouteImport } from './routes/demo/sentry.testing'
-import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
-import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as AuthFormLayoutSignUpRouteImport } from './routes/auth/_formLayout/sign-up'
 import { Route as AuthFormLayoutSignInRouteImport } from './routes/auth/_formLayout/sign-in'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
@@ -26,21 +20,6 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 
 const AuthedRoute = AuthedRouteImport.update({
   id: '/_authed',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTrpcTodoRoute = DemoTrpcTodoRouteImport.update({
-  id: '/demo/trpc-todo',
-  path: '/demo/trpc-todo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTableRoute = DemoTableRouteImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthFormLayoutRoute = AuthFormLayoutRouteImport.update({
@@ -56,21 +35,6 @@ const AuthedLayoutIndexRoute = AuthedLayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthedLayoutRoute,
-} as any)
-const DemoSentryTestingRoute = DemoSentryTestingRouteImport.update({
-  id: '/demo/sentry/testing',
-  path: '/demo/sentry/testing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthFormLayoutSignUpRoute = AuthFormLayoutSignUpRouteImport.update({
   id: '/sign-up',
@@ -96,46 +60,28 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof AuthedLayoutIndexRoute
   '/auth': typeof AuthFormLayoutRouteWithChildren
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/auth/sign-in': typeof AuthFormLayoutSignInRoute
   '/auth/sign-up': typeof AuthFormLayoutSignUpRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthedLayoutIndexRoute
   '/auth': typeof AuthFormLayoutRouteWithChildren
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/auth/sign-in': typeof AuthFormLayoutSignInRoute
   '/auth/sign-up': typeof AuthFormLayoutSignUpRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authed': typeof AuthedRouteWithChildren
   '/_authed/_layout': typeof AuthedLayoutRouteWithChildren
   '/auth/_formLayout': typeof AuthFormLayoutRouteWithChildren
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/auth/_formLayout/sign-in': typeof AuthFormLayoutSignInRoute
   '/auth/_formLayout/sign-up': typeof AuthFormLayoutSignUpRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/_authed/_layout/': typeof AuthedLayoutIndexRoute
 }
 export interface FileRouteTypes {
@@ -143,59 +89,35 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/trpc-todo'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/sentry/testing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/trpc-todo'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/sentry/testing'
   id:
     | '__root__'
     | '/_authed'
     | '/_authed/_layout'
     | '/auth/_formLayout'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/trpc-todo'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/auth/_formLayout/sign-in'
     | '/auth/_formLayout/sign-up'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/sentry/testing'
     | '/_authed/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthedRoute: typeof AuthedRouteWithChildren
   AuthFormLayoutRoute: typeof AuthFormLayoutRouteWithChildren
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  DemoTrpcTodoRoute: typeof DemoTrpcTodoRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
-  DemoSentryTestingRoute: typeof DemoSentryTestingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -205,27 +127,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/trpc-todo': {
-      id: '/demo/trpc-todo'
-      path: '/demo/trpc-todo'
-      fullPath: '/demo/trpc-todo'
-      preLoaderRoute: typeof DemoTrpcTodoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/_formLayout': {
@@ -248,27 +149,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthedLayoutIndexRouteImport
       parentRoute: typeof AuthedLayoutRoute
-    }
-    '/demo/sentry/testing': {
-      id: '/demo/sentry/testing'
-      path: '/demo/sentry/testing'
-      fullPath: '/demo/sentry/testing'
-      preLoaderRoute: typeof DemoSentryTestingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/auth/_formLayout/sign-up': {
       id: '/auth/_formLayout/sign-up'
@@ -341,14 +221,8 @@ const AuthFormLayoutRouteWithChildren = AuthFormLayoutRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   AuthedRoute: AuthedRouteWithChildren,
   AuthFormLayoutRoute: AuthFormLayoutRouteWithChildren,
-  DemoTableRoute: DemoTableRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  DemoTrpcTodoRoute: DemoTrpcTodoRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
-  DemoSentryTestingRoute: DemoSentryTestingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

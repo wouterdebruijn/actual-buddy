@@ -1,8 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import z, { email } from "zod";
 import Title from "@/components/basic/Title";
-import { useAppForm } from "@/hooks/demo.form";
-import { getSession } from "@/lib/auth.server";
+import { useAppForm } from "@/hooks/app-form";
+import { getSession } from "@/lib/auth";
 import { signIn } from "@/lib/auth-client";
 
 export const Route = createFileRoute("/auth/_formLayout/sign-in")({

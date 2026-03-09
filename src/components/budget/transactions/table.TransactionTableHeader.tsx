@@ -7,7 +7,7 @@ export interface TableHeaderProps {
 	table: Table<unknown>;
 }
 
-function Filter({ column }: { column: Column<any, unknown> }) {
+function Filter({ column }: { column: Column<unknown, unknown> }) {
 	const columnFilterValue = column.getFilterValue();
 
 	return (

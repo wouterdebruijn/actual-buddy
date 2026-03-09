@@ -1,7 +1,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import superjson from "superjson";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth.server";
 
 // Create context from request headers
 export async function createTRPCContext(opts: FetchCreateContextFnOptions) {

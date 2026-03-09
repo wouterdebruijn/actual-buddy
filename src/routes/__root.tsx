@@ -1,5 +1,4 @@
 import { AppShell } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
@@ -55,8 +54,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const [opened, { toggle }] = useDisclosure();
-
 	return (
 		<html lang="en">
 			<head>
@@ -69,9 +66,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							padding="md"
 							header={{ height: 80 }}
 							navbar={{
-								width: 150,
+								width: 300,
+								collapsed: {
+									desktop: true,
+									mobile: true,
+								},
 								breakpoint: "sm",
-								collapsed: { desktop: !opened, mobile: !opened },
 							}}
 						>
 							<div>{children}</div>

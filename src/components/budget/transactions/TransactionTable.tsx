@@ -15,7 +15,7 @@ import type {
 import TransactionTableHeader from "./table.TransactionTableHeader";
 
 declare module "@tanstack/react-table" {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	// biome-ignore lint/correctness/noUnusedVariables: dunno yet
 	interface ColumnMeta<TData, TValue> {
 		fixed?: boolean;
 		textAlign?: "left" | "right" | "center";
@@ -29,7 +29,7 @@ export interface TransactionTableProps {
 export default function TransactionTable({
 	transactions,
 }: TransactionTableProps) {
-	const columns = useMemo<ColumnDef<ActualTransaction, any>[]>(
+	const columns = useMemo<ColumnDef<ActualTransaction, unknown>[]>(
 		() => [
 			{
 				header: "Select",

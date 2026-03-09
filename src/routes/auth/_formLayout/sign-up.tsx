@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import z, { email } from "zod";
 import Title from "@/components/basic/Title";
-import { useAppForm } from "@/hooks/demo.form";
+import { useAppForm } from "@/hooks/app-form";
 import { signUp } from "@/lib/auth-client";
 
 export const Route = createFileRoute("/auth/_formLayout/sign-up")({
@@ -40,12 +40,6 @@ function RouteComponent() {
 					name: value.email,
 				},
 				{
-					onRequest: (ctx) => {
-						//show loading
-					},
-					onSuccess: (ctx) => {
-						//redirect to the dashboard or sign in page
-					},
 					onError: (ctx) => {
 						// display the error message
 						alert(ctx.error.message);

@@ -1,5 +1,4 @@
 import {
-	Alert,
 	Button,
 	type ButtonProps,
 	Select as MantineSelect,
@@ -9,7 +8,7 @@ import {
 	type TextInputProps,
 } from "@mantine/core";
 import { useStore } from "@tanstack/react-form";
-import { useFieldContext, useFormContext } from "@/hooks/demo.form-context";
+import { useFieldContext, useFormContext } from "@/hooks/form-context";
 import { useZodFormError } from "@/hooks/zod-form-error";
 
 export function SubscribeButton({
@@ -25,25 +24,6 @@ export function SubscribeButton({
 				</Button>
 			)}
 		</form.Subscribe>
-	);
-}
-
-function ErrorMessages({
-	errors,
-}: {
-	errors: Array<string | { message: string }>;
-}) {
-	return (
-		<Alert variant="light" color="red">
-			{errors.map((error) => (
-				<div
-					key={typeof error === "string" ? error : error.message}
-					className="text-red-500 mt-1 font-bold"
-				>
-					{typeof error === "string" ? error : error.message}
-				</div>
-			))}
-		</Alert>
 	);
 }
 

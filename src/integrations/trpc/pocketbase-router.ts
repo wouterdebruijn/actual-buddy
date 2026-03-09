@@ -1,6 +1,6 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import z from "zod";
-import getPocketBaseInstance from "@/lib/pocketbase";
+import getPocketBaseInstance from "@/lib/pocketbase.server";
 import { Collections, type Create } from "@/types/pocketbase-types";
 import { protectedProcedure } from "./init";
 

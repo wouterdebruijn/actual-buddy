@@ -3,7 +3,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { AtSign, LogOut, Settings, User } from "lucide-react";
 import { signOut } from "@/lib/auth-client";
 import type { AuthenticatedUser } from "@/types/auth";
-import classes from "./Header.ProfileMenu.module.css";
 
 interface ProfileMenuProps {
 	user: AuthenticatedUser | null;
@@ -27,15 +26,15 @@ export default function HeaderProfileMenu({ user }: ProfileMenuProps) {
 			</Menu.Target>
 
 			<Menu.Dropdown>
-				<Group wrap="nowrap" gap={10} className={classes.profile}>
-					<Avatar size={64} radius="md" />
+				<Group wrap="nowrap" gap={10} className="m-2">
+					<Avatar size={64} radius="md" color="primary" />
 					<div>
-						<Text fz="lg" fw={500} className={classes.name}>
+						<Text fz="lg" fw={500}>
 							{user?.name}
 						</Text>
 
 						<Group wrap="nowrap" gap={10} mt={3}>
-							<AtSign size={16} className={classes.icon} />
+							<AtSign size={16} />
 							<Text fz="xs" c="dimmed">
 								{user?.email}
 							</Text>

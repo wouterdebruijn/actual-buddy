@@ -1,25 +1,17 @@
-import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeaders } from "@tanstack/react-start/server";
-import { auth } from "@/lib/auth";
+import { betterAuth } from "better-auth";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+import { pocketBaseAdapter } from "pocketbase-better-auth";
+import getPocketBaseInstance from "./pocketbase.server";
 
-export const getSession = createServerFn({ method: "GET" }).handler(
-	async () => {
-		const headers = getRequestHeaders();
-		const session = await auth.api.getSession({ headers });
+const pb = getPocketBaseInstance();
 
-		return session;
+export const auth = betterAuth({
+	database: pocketBaseAdapter({
+		pb,
+		usePlural: false, // IMPORTANT: Use false to match the singular schema names (user, session, account, verification)
+	}),
+	emailAndPassword: {
+		enabled: true,
 	},
-);
-
-export const ensureSession = createServerFn({ method: "GET" }).handler(
-	async () => {
-		const headers = getRequestHeaders();
-		const session = await auth.api.getSession({ headers });
-
-		if (!session) {
-			throw new Error("Unauthorized");
-		}
-
-		return session;
-	},
-);
+	plugins: [tanstackStartCookies()], // make sure this is the last plugin in the array,
+});
