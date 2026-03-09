@@ -1,10 +1,9 @@
-import { AppShell, Loader, Stack, Text } from "@mantine/core";
+import { AppShell, Stack, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import SectionLine from "@/components/basic/SectionLine";
 import Title from "@/components/basic/Title";
-import BudgetOnboarding from "@/components/budget/BudgetOnboarding";
 import ActualAccountSelection from "@/feature/ActualAccountSelection";
 import ActualTransactionTable from "@/feature/ActualTransactionTable";
 
@@ -34,11 +33,11 @@ export const Route = createFileRoute("/_authed/_layout/")({
 function RouteComponent() {
 	const { user, trpc } = Route.useRouteContext();
 
-	const { data: pocketBaseBudgets, isLoading: budgetsLoading } = useQuery(
+	const { data: pocketBaseBudgets } = useQuery(
 		trpc.pocketbase.user.budget.list.queryOptions(),
 	);
 
-	const { data: actualBudgetAccounts, isLoading: accountsLoading } = useQuery(
+	const { data: actualBudgetAccounts } = useQuery(
 		trpc.actual.accounts.list.queryOptions(),
 	);
 
@@ -59,9 +58,6 @@ function RouteComponent() {
 		);
 	}, [pocketBaseBudgets, actualBudgetAccounts]);
 
-	const showOnboarding = !pocketBaseBudgets || pocketBaseBudgets.length === 0;
-	const isLoading = budgetsLoading || accountsLoading;
-
 	return (
 		<AppShell.Section className="flex gap-8 flex-col">
 			<Stack>
@@ -69,7 +65,7 @@ function RouteComponent() {
 				<Text>
 					Welcome to the ActualBuddy dashboard! Here you can view your financial
 					data and split payments with friends. Use the navigation menu to
-					explore different features and manage your accounts.
+					explore different features and manage your accounts.{" "}
 				</Text>
 				{user && (
 					<Text>
@@ -80,23 +76,13 @@ function RouteComponent() {
 
 			<SectionLine />
 
-			{isLoading ? (
-				<Stack align="center" justify="center" className="min-h-50">
-					<Loader size="lg" />
-					<Text c="dimmed">Loading your dashboard...</Text>
-				</Stack>
-			) : showOnboarding ? (
-				<BudgetOnboarding accounts={actualBudgetAccounts ?? []} />
-			) : (
-				<>
-					<ActualAccountSelection
-						accounts={filteredAccounts}
-						setAccountId={setAccountId}
-					/>
+			<ActualAccountSelection
+				accounts={filteredAccounts}
+				accountId={accountId}
+				setAccountId={setAccountId}
+			/>
 
-					<ActualTransactionTable accountId={accountId} />
-				</>
-			)}
+			<ActualTransactionTable accountId={accountId} />
 		</AppShell.Section>
 	);
 }
