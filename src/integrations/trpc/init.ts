@@ -9,10 +9,6 @@ export async function createTRPCContext(opts: FetchCreateContextFnOptions) {
 		headers: opts.req.headers,
 	});
 
-	console.log(
-		JSON.stringify(Object.fromEntries(opts.req.headers.entries()), null, 2),
-	);
-
 	return {
 		user: authSession?.user,
 	};
