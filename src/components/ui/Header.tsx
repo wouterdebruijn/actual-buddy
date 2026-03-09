@@ -1,14 +1,15 @@
 import { Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
+import type { AuthenticatedUser } from "@/types/auth";
 import BrandTitle from "../basic/BrandTitle";
-import HeaderAuthButtons from "./Header.AuthButtons";
+import HeaderProfileMenu from "./Header.ProfileMenu";
 
 interface HeaderProps {
-	showAuthButtons?: boolean;
+	user: AuthenticatedUser | null;
 }
 
-export default function Header({ showAuthButtons = true }: HeaderProps) {
+export default function Header({ user }: HeaderProps) {
 	const [opened, { toggle }] = useDisclosure();
 
 	return (
@@ -19,7 +20,10 @@ export default function Header({ showAuthButtons = true }: HeaderProps) {
 					<BrandTitle />
 				</Link>
 			</Group>
-			{showAuthButtons && <HeaderAuthButtons />}
+
+			<Group className="ml-auto pr-6">
+				<HeaderProfileMenu user={user} />
+			</Group>
 		</Group>
 	);
 }

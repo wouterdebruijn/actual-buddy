@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_authed/_layout/")({
 });
 
 function RouteComponent() {
-	const { user, trpc } = Route.useRouteContext();
+	const { trpc } = Route.useRouteContext();
 
 	const { data: pocketBaseBudgets } = useQuery(
 		trpc.pocketbase.user.budget.list.queryOptions(),
@@ -67,11 +67,6 @@ function RouteComponent() {
 					data and split payments with friends. Use the navigation menu to
 					explore different features and manage your accounts.{" "}
 				</Text>
-				{user && (
-					<Text>
-						Logged in as: {user.name} ({user.email})
-					</Text>
-				)}
 			</Stack>
 
 			<SectionLine />

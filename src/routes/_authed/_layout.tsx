@@ -7,10 +7,12 @@ export const Route = createFileRoute("/_authed/_layout")({
 });
 
 function RouteComponent() {
+	const { user } = Route.useRouteContext();
+
 	return (
 		<div>
 			<AppShell.Header>
-				<Header />
+				<Header user={user} />
 			</AppShell.Header>
 
 			<AppShell.Navbar>
