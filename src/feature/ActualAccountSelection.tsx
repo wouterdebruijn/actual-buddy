@@ -8,16 +8,18 @@ const schema = z.object({
 
 export interface ActualAccountSelectionProps {
 	accounts: APIAccountEntity[];
+	accountId?: string;
 	setAccountId: (accountId: string) => void;
 }
 
 export default function ActualAccountSelection({
 	accounts,
+	accountId,
 	setAccountId,
 }: ActualAccountSelectionProps) {
 	const form = useAppForm({
 		defaultValues: {
-			accountId: "",
+			accountId: accountId || "",
 		},
 		validators: {
 			onBlur: schema,
